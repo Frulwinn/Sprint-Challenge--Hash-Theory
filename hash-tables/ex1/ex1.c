@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "hashtable.h"
 #include "ex1.h"
 
@@ -37,22 +38,33 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
   ```
   */
   //SOLUTION
-  //loop through the items in the weight list
+    //loop through the items in the weight list
+    for(int i = 0; i < length; i++) {
 
-  //check if the needed key is in the hash table
-  //return the index value of the key for that weights array
-  //calculate the two weight number needed to equal the limit
+      //check if the needed key is in the hash table
+      //return the index value of the key for that weights array
+      //calculate the two weight number needed to equal the limit
+      int needed_key = hash_table_retrieve(ht, limit - weights[i]);
 
-  //if the key is not in the hash table make one
-  //create the key value pairs that are inserted into the hash table
+    //if the key is not in the hash table make one
+    //create the key value pairs that are inserted into the hash table
+    if (needed_key == -1) {
+      hash_table_insert(ht, weights[i], i);
 
-  //if a key equal to the (limit - weight) exists
-  //create an instance of the answer truct
+    //if a key equal to the (limit - weight) exists
+    //create an instance of the answer struct
+    } else {
+      Answer *result = malloc(sizeof(Answer));
 
-  //set the index of the weight started with
-
-  //store the value(index) that matches
-
+      //set the index of the weight started with
+      result->index_1 = i;
+      //store the value(index) that matches
+      result->index_2 = needed_key;
+      return result;
+      }
+    }
+  //didn't find a solution return NULL
+  destroy_hash_table(ht);
   return NULL;
 }
 
