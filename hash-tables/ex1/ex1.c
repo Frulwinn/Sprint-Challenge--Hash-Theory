@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "hashtable.h"
 #include "ex1.h"
 
@@ -7,8 +8,63 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
 
-  /* YOUR CODE HERE */
+  /* YOUR CODE HERE 
+  Understanding the problem --------------
+  merging two packages
+  A package is given WITH (limit and weights)
+  weight limit = limit
+  list = weights of item weights
+  FIND two items whose sum of weights == weight limit
+  index_1 + index_2 == weight limit
+  return instance of answer struct
 
+  typdef struct Answer { //represents item weights of two packages
+  int index_1; //place higher value weight
+  int index_2; //place smaller value weight
+} Answer;
+
+  If such a pair doesn’t exist for the given inputs, 
+  your function should return `NULL`.
+
+  When calling `hash_table_retrieve` with a key that doesn't exist 
+  in the hash table, `hash_table_retrieve` will return -1. 
+
+  Example:
+  ```
+  input: int *weights = { 4, 6, 10, 15, 16 }, 
+  int length = 5, int limit = 21
+  output: Answer{ index_1: 3, index_2: 1 }  
+  # since these are the indices of weights 15 and 6 whose sum equals 21
+  ```
+  */
+  //SOLUTION
+    //loop through the items in the weight list
+    for(int i = 0; i < length; i++) {
+
+      //check if the needed key is in the hash table
+      //return the index value of the key for that weights array
+      //calculate the two weight number needed to equal the limit
+      int needed_key = hash_table_retrieve(ht, limit - weights[i]);
+
+    //if the key is not in the hash table make one
+    //create the key value pairs that are inserted into the hash table
+    if (needed_key == -1) {
+      hash_table_insert(ht, weights[i], i);
+
+    //if a key equal to the (limit - weight) exists
+    //create an instance of the answer struct
+    } else {
+      Answer *result = malloc(sizeof(Answer));
+
+      //set the index of the weight started with
+      result->index_1 = i;
+      //store the value(index) that matches
+      result->index_2 = needed_key;
+      return result;
+      }
+    }
+  //didn't find a solution return NULL
+  destroy_hash_table(ht);
   return NULL;
 }
 
