@@ -26,7 +26,7 @@ char **reconstruct_trip(Ticket **tickets, int length)
 
   //SOLUTION
   //create hash table keys and values
-  for (int i = 0, i < length; i++) {
+  for (int i = 0; i < length; i++) {
 
     //insert tickets to the hash table, key: location, value destination
     hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
@@ -42,7 +42,6 @@ char **reconstruct_trip(Ticket **tickets, int length)
     //returns value/destination of that ticket
     current_location = hash_table_retrieve(ht, current_location);
   }
-
   return route;
 }
 
