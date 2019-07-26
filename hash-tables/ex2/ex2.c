@@ -9,7 +9,34 @@ char **reconstruct_trip(Ticket **tickets, int length)
   HashTable *ht = create_hash_table(length);
   char **route = malloc(length * sizeof(char *));
 
-  /* YOUR CODE HERE */
+  /* YOUR CODE HERE 
+  Understanding the problem ---------------
+  one-way flight trip
+  unscramble your flight tickets by reconstructing trip func
+
+  each ticket is represented as a struct
+  typedef struct Ticket {
+  char *source; //represents starting airport
+  char *destination; //represents next aiport
+} Ticket;
+
+  first flight has destination source of none
+  final flight has destination source of none
+  */
+
+  //SOLUTION
+  //create hash table keys and values
+
+  //insert tickets to the hash table, key: location, value destination
+
+  //the first index should have a source of NONE
+
+  //loop through each ticket in the hash table
+  
+  //add current location to the route array
+
+  //get the next location that has the source/key that matches current ticket destination
+  //returns value/destination of that ticket
 
   return route;
 }
